@@ -3,15 +3,30 @@ from forms import UserForm
 from flask_wtf.csrf import CSRFProtect
 from config import DevelomentConfig
 
+from models import db
+from models import Alumnos
+
 app=Flask(__name__)
-app.secret_key = "esta es mi clave secreta"
-
-
 app.config.from_object(DevelomentConfig)
-csrf=CSRFProtect
-@app.route("/")
+csrf=CSRFProtect()
+
+@app.route("/ABC_Completo", methods=[ "GET", "POST"])
+def ABCompleto():
+    alumno = Alumnos.query.all()
+    return render_template("ABC_Completo.html", alumnos=alumno)
+
+@app.route("/",methods=['GET','POST'])
 def index():
-    return render_template("index.html")
+    formulario = UserForm(request.form)
+    if request.method == 'POST':
+        alumno = Alumnos(nombre = formulario.nombre.data, 
+                         apaterno = formulario.apaterno.data,
+                         amaterno = formulario.amaterno.data,
+                         email = formulario.email.data)
+        db.session.add(alumno)
+        db.session.commit()
+        print("Finalizó")
+    return render_template("index.html", form=formulario)
 
 @app.errorhandler(404)
 def page_noit_found():
@@ -50,6 +65,8 @@ def alumno():
 
 if __name__=="__main__":
     csrf.init_app(app)
-    
+    db.init_app(app)
+
+    with app.app_context():
+        db.create_all()
     app.run()
-    

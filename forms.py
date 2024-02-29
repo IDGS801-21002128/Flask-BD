@@ -1,20 +1,22 @@
-from wtforms import Form,StringField,EmailField,IntegerField,TelField, validators
+from wtforms import validators,Form,StringField,IntegerField,EmailField
 
 class UserForm(Form):
-    nombre = StringField('nombre',[
-        validators.DataRequired(message="El campo es requerido"),
-        validators.length(min=4,max=10,message="ingresa nombre valido")
-        ])
-
-   ## email = EmailField('email',[validators.Email(message="Ingrese un correo valido")])
-    apaterno=TelField('apaterno',[
-        validators.DataRequired(message="El campo es requerido"),
-        validators.length(min=4,max=10,message="ingresa apellido paterno valido")
-        ])
-    amaterno=TelField('amaterno ',[
-        validators.DataRequired(message="El campo es requerido"),
-        validators.length(min=4,max=10,message="ingresa apellido materno valido")
-        ])
-    numeroCelular=IntegerField('nCelular',[
-        validators.DataRequired(message="ingrese un numero celular valido")
+    id = IntegerField('id',[validators.number_range(min=1, max=20, message='Valor no válido')])
+    nombre = StringField("nombre",[
+        validators.DataRequired(message='El campo es requerido.'),
+        validators.length(min=4,max=10,message='El minimo es 4 y el máximo es 10'),
+    ])
+    apaterno = StringField("apaterno",[
+        validators.DataRequired(message='El campo es requerido.'),
+        validators.length(min=4,max=10,message='El minimo es 4 y el máximo es 10')
+    ])
+    amaterno = StringField("amaterno",[
+        validators.DataRequired(message='El campo es requerido.'),
+        validators.length(min=4,max=10,message='El minimo es 4 y el máximo es 10')
+    ])
+    email = EmailField("email",[
+        validators.Email(message='Ingrese un email válido!')
+    ])
+    edad = IntegerField("edad",[
+        validators.DataRequired(message='El campo es requerido.'),
     ])

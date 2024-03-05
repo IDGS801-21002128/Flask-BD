@@ -1,0 +1,46 @@
+{% extends "layout2.html" %}
+
+{% block container %}
+{% import "macro.html" as macros%}
+
+<div class="text-center">
+    <h1>Formulario</h1>
+    <h2>Base de datos</h2>
+</div>
+<form name="sent" action="/eliminar" id="contactForm" method="POST" novalidate>
+    <div class="row control-group">
+        <div class="form-group col-xs-12 float-label-form-group-controls">
+            {{macros.camposNuevos(form.id, class="form-control")}}
+        </div>
+    </div>
+    <div class="row control-group">
+        <div class="form-group col-xs-12 float-label-form-group-controls">
+            {{macros.camposNuevos(form.nombre, class="form-control")}}
+        </div>
+    </div>
+
+    <div class="row control-group">
+        <div class="form-group col-xs-12 float-label-form-group-controls">
+            {{macros.camposNuevos(form.apaterno, class="form-control")}}
+        </div>
+    </div>
+
+    <div class="row control-group">
+        <div class="form-group col-xs-12 float-label-form-group-controls">
+            {{macros.camposNuevos(form.amaterno, class="form-control")}}
+        </div>
+    </div>
+
+    <div class="row control-group">
+        <div class="form-group col-xs-12 float-label-form-group-controls">
+            {{macros.camposNuevos(form.email, class="form-control")}}
+        </div>
+    </div>
+
+    <input type="hidden" name="csrf_token" value="{{ csrf_token() }}">
+    <input type="submit" id="eliminar" name="eliminar" value="eliminar" class="btn btn-warning ">
+    <a href="ABC_completo" class="btn btn-success ">Cancelar
+    </a>
+   
+</form>
+{%endblock%}
